@@ -1,0 +1,12 @@
+.idea
+Cucumber-SeleniumProject.iml
+Screenshot
+log4j-test-automation.log
+target
+.classpath
+.project
+.settings/
+test-output/
+.metadata
+.recommenders/
+.DS_Store
