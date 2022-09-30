@@ -50,11 +50,13 @@ public class AgoraAPIStepDef
         		.then()
         		.assertThat().statusCode(200)
         		.extract().response().asString();
-        System.out.println("97 Dev Env POST Request Response : "+response);
+        LogCapture.info("97 Dev Env POST Request Response : "+response);
+        //System.out.println("97 Dev Env POST Request Response : "+response);
         
         JsonPath js = new JsonPath(response);
         devAccessToken97 = js.getString("access_token");
-        System.out.println("97 Dev Environment Access Token Is : "+devAccessToken97);		          			
+        LogCapture.info("97 Dev Environment Access Token Is : "+devAccessToken97);
+        //System.out.println("97 Dev Environment Access Token Is : "+devAccessToken97);		          			
 	}
 
 	@When("^User hit the GET http request \"([^\"]*)\" for getting the user details on DEV$")
@@ -67,7 +69,8 @@ public class AgoraAPIStepDef
         Response response = httpRequest.get("/v2/users/2931291762603332769");
         ResponseBody body = response.getBody();
         String bodyStringValue = body.asString();
-        System.out.println(bodyStringValue);
+        LogCapture.info(bodyStringValue);
+        //System.out.println(bodyStringValue);
         actStatusCode = response.getStatusCode();
         //System.out.println(actStatusCode);
 	}
@@ -75,7 +78,8 @@ public class AgoraAPIStepDef
 	@Then("^User validate the Status code as \"([^\"]*)\" on DEV$")
 	public void user_validate_the_Status_code_as(String Scode) throws Throwable 
 	{
-		System.out.println("Status code of GET User details request on DEV --- "+actStatusCode);
+		//System.out.println("Status code of GET User details request on DEV --- "+actStatusCode);
+		LogCapture.info("Status code of GET User details request on DEV --- "+actStatusCode);
 		
 		int expStatusCode = Integer.parseInt(Scode);
 		
@@ -105,17 +109,20 @@ public class AgoraAPIStepDef
         		.then()
         		.assertThat().statusCode(200)
         		.extract().response().asString();
-        System.out.println("30 Sit Env POST Request Response : "+response);
+        //System.out.println("30 Sit Env POST Request Response : "+response);
+        LogCapture.info("30 Sit Env POST Request Response : "+response);
         
         JsonPath js = new JsonPath(response);
         sitAccessToken30 = js.getString("access_token");
-        System.out.println("30 Sit Environment Access Token Is : "+sitAccessToken30);
+        //System.out.println("30 Sit Environment Access Token Is : "+sitAccessToken30);
+        LogCapture.info("30 Sit Environment Access Token Is : "+sitAccessToken30);
 	}
 	
 	@When("^User hit the GET http request \"([^\"]*)\" for getting the user details on SIT$")
 	public void user_hit_the_GET_http_request_for_getting_the_user_details_on_SIT(String sitGET) throws Throwable 
 	{
-		System.out.println(sitAccessToken30);
+		//System.out.println(sitAccessToken30);
+		LogCapture.info(sitAccessToken30);
 		RestAssured.baseURI = "http://172.31.21.30:8888";
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Authorization", "Bearer "+ sitAccessToken30);
@@ -123,7 +130,8 @@ public class AgoraAPIStepDef
         Response response = httpRequest.get("/v2/users/2930674112340694637");
         ResponseBody body = response.getBody();
         String bodyStringValue = body.asString();
-        System.out.println(bodyStringValue);
+        //System.out.println(bodyStringValue);
+        LogCapture.info(bodyStringValue);
         actStatusCode = response.getStatusCode();
         //System.out.println(actStatusCode);
 	}
@@ -131,7 +139,8 @@ public class AgoraAPIStepDef
 	@Then("^User validate the Status code as \"([^\"]*)\" on SIT$")
 	public void user_validate_the_Status_code_as_on_SIT(String Scode) throws Throwable 
 	{
-		System.out.println("Status code of GET User details request on SIT --- "+actStatusCode);
+		//System.out.println("Status code of GET User details request on SIT --- "+actStatusCode);
+		LogCapture.info("Status code of GET User details request on SIT --- "+actStatusCode);
 		
 		int expStatusCode = Integer.parseInt(Scode);
 		
@@ -161,17 +170,20 @@ public class AgoraAPIStepDef
         		.then()
         		.assertThat().statusCode(200)
         		.extract().response().asString();
-        System.out.println("25 Stagging Env POST Request Response : "+response);
+        //System.out.println("25 Stagging Env POST Request Response : "+response);
+        LogCapture.info("25 Stagging Env POST Request Response : "+response);
         
         JsonPath js = new JsonPath(response);
         stagAccessToken25 = js.getString("access_token");
-        System.out.println("25 Stagging Environment Access Token Is : "+stagAccessToken25);
+        //System.out.println("25 Stagging Environment Access Token Is : "+stagAccessToken25);
+        LogCapture.info("25 Stagging Environment Access Token Is : "+stagAccessToken25);
 	}
 
 	@When("^User hit the GET http request \"([^\"]*)\" for getting the user details on Stagging$")
 	public void user_hit_the_GET_http_request_for_getting_the_user_details_on_Stagging(String stagGET) throws Throwable
 	{
-		System.out.println(stagAccessToken25);
+		//System.out.println(stagAccessToken25);
+		LogCapture.info(stagAccessToken25);
 		RestAssured.baseURI = "http://172.31.21.25:8888";
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Authorization", "Bearer "+ stagAccessToken25);
@@ -179,7 +191,8 @@ public class AgoraAPIStepDef
         Response response = httpRequest.get("/v2/users/2861095794616833496");
         ResponseBody body = response.getBody();
         String bodyStringValue = body.asString();
-        System.out.println(bodyStringValue);
+        //System.out.println(bodyStringValue);
+        LogCapture.info(bodyStringValue);
         actStatusCode = response.getStatusCode();
         //System.out.println(actStatusCode);
 	}
@@ -187,7 +200,8 @@ public class AgoraAPIStepDef
 	@Then("^User validate the Status code as \"([^\"]*)\" on Stagging$")
 	public void user_validate_the_Status_code_as_on_Stagging(String Scode) throws Throwable 
 	{
-		System.out.println("Status code of GET User details request on Stagging --- "+actStatusCode);
+		//System.out.println("Status code of GET User details request on Stagging --- "+actStatusCode);
+		LogCapture.info("Status code of GET User details request on Stagging --- "+actStatusCode);
 		
 		int expStatusCode = Integer.parseInt(Scode);
 		
