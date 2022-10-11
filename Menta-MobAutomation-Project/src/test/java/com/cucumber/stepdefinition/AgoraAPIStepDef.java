@@ -62,11 +62,11 @@ public class AgoraAPIStepDef
 	@When("^User hit the GET http request \"([^\"]*)\" for getting the user details on DEV$")
 	public void user_hit_the_GET_http_request_for_getting_the_user_details(String devGET) throws Throwable 
 	{				
-		RestAssured.baseURI = "http://172.31.21.97:8888";
+		RestAssured.baseURI = devGET;
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Authorization", "Bearer "+ devAccessToken97);
        
-        Response response = httpRequest.get("/v2/users/2931291762603332769");
+        Response response = httpRequest.get(devGET);
         ResponseBody body = response.getBody();
         String bodyStringValue = body.asString();
         LogCapture.info(bodyStringValue);
@@ -123,11 +123,11 @@ public class AgoraAPIStepDef
 	{
 		//System.out.println(sitAccessToken30);
 		LogCapture.info(sitAccessToken30);
-		RestAssured.baseURI = "http://172.31.21.30:8888";
+		RestAssured.baseURI = sitGET;
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Authorization", "Bearer "+ sitAccessToken30);
        
-        Response response = httpRequest.get("/v2/users/2930674112340694637");
+        Response response = httpRequest.get(sitGET);
         ResponseBody body = response.getBody();
         String bodyStringValue = body.asString();
         //System.out.println(bodyStringValue);
@@ -184,11 +184,11 @@ public class AgoraAPIStepDef
 	{
 		//System.out.println(stagAccessToken25);
 		LogCapture.info(stagAccessToken25);
-		RestAssured.baseURI = "http://172.31.21.25:8888";
+		RestAssured.baseURI = stagGET;
         RequestSpecification httpRequest = RestAssured.given();
         httpRequest.header("Authorization", "Bearer "+ stagAccessToken25);
        
-        Response response = httpRequest.get("/v2/users/2861095794616833496");
+        Response response = httpRequest.get(stagGET);
         ResponseBody body = response.getBody();
         String bodyStringValue = body.asString();
         //System.out.println(bodyStringValue);
