@@ -21,7 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.auth.AuthOption;
+import org.testng.Assert;
 
+import com.appium.utility.Constants;
 import com.sun.xml.bind.v2.runtime.output.Encoded;
 import com.utility.LogCapture;
 import com.utility.SendMail;
@@ -216,5 +218,73 @@ public class AgoraAPIStepDef
 		}
 	}
 	
+	
+	
+	/*      Titan Cards API      */
+	
+	@Given("^User hit the POST http request \"([^\"]*)\" for bearer token$")
+	public void user_hit_the_POST_http_request_for_bearer_token(String tokenReq) throws Throwable 
+	{
+		String vTokenReq = Constants.CONFIG.getProperty(tokenReq);
+		
+		RestAssured.baseURI = vTokenReq ;
+        String response = given()
+        		.header("Content-Type", "application/x-www-form-urlencoded")
+        		.header("Accept-Encoding" , "gzip,deflate")
+        	    .header("Accept-Language", "en-US,en;q=0.8")
+        	    .header("Accept", "application/x-www-form-urlencoded")
+        	    .body("grant_type=password&client_id=auth_token_service&username=cd_api_user&password=Currenc!es@E145AA&client_secret=857f21c0-4c5d-4022-8c0c-4ead1ffdb6fc")
+        		.when()
+        		.post(vTokenReq)
+        		.then()
+        		.assertThat().statusCode(200)
+        		.extract().response().asString();
+        LogCapture.info("HTTP Post request of token API response is : "+response);
+       
+        JsonPath js = new JsonPath(response);
+        Constants.bearerToken = js.getString("access_token");
+        LogCapture.info("Access token is : "+Constants.bearerToken);
+	}
+	
+	@When("^User hit the POST http request \"([^\"]*)\" for getting balance amount of customer ID \"([^\"]*)\"$")
+	public void user_hit_the_POST_http_request_for_getting_balance_amount_of_customer_ID(String getBalanceReq, String customerID) throws Throwable 
+	{
+		
+		
+		HashMap<String, Object> getBalReqBody = new HashMap<>();
+		getBalReqBody.put("eventId", "fc958869-5f34-475b-b311-eac338a0d84f");
+		getBalReqBody.put("cdCustomerRef", customerID);
+		getBalReqBody.put("baseCurrency", "GBP");
+	
+		String vGetBalanceReq = Constants.CONFIG.getProperty(getBalanceReq);
+		
+		RestAssured.baseURI = vGetBalanceReq;
+		String response = given()
+				 .body(getBalReqBody)
+				 .header("Content-Type","application/json")
+                 .header("Authorization","Bearer "+Constants.bearerToken)
+                 .when()
+                 .post(vGetBalanceReq)
+                 .then()
+                 .assertThat().statusCode(200)
+                 .extract().response().asString();
+        LogCapture.info("HTTP Post request of Get Balance API response is : "+response);
+        
+        JsonPath js = new JsonPath(response);
+        String actualBalance = js.getString("actualBalance");
+        String availableBalance = js.getString("availableBalance");
+        LogCapture.info("Actual Balance of above customer is : "+actualBalance);
+        LogCapture.info("Available Balance of above customer is : "+availableBalance);
+        
+        Constants.responseCode = js.getString("response_code");
+        LogCapture.info("Response Code of get balance API is : "+Constants.responseCode);
+	}
+	
+	@Then("^User validate the Response code \"([^\"]*)\"$")
+	public void user_validate_the_Status_code(String expResCode) throws Throwable 
+	{
+		Assert.assertEquals(Constants.responseCode, expResCode);
+		LogCapture.info("Response code is verified for get balance API....");
+	}
 	
 }

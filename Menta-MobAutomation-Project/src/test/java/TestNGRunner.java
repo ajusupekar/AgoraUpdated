@@ -11,7 +11,7 @@ public class TestNGRunner {
 			glue = { "com.cucumber.stepdefinition" },
 			strict = false,
 			dryRun = false,
-				tags = {"@HC"},    
+				tags = {"@Get_Balance"},    
 					//AndroidMenta_Sanity , AchTT
 				//HealthCheck_DEV97
 				 	plugin = { 

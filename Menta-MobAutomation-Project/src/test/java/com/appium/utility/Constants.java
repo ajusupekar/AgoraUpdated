@@ -59,4 +59,13 @@ public class Constants {
 	public static Properties IOSMentaOR;
 	
 	public static Properties ANDROIDFinastraParentOR;
+	
+	
+	
+	
+	/*   API Variables   */
+	public static String bearerToken;
+	public static int statusCode;
+	public static String responseCode;
+	
 }

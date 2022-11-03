@@ -1,6 +1,6 @@
 Feature: Agora Get User Details API
 
-	@HealthCheck_DEV97 @HC
+  @HealthCheck_DEV97 @HC
   Scenario Outline: User test Get User details API on DEV 97 environment.
 		Given User hit the POST http request "<POSTReq>" for token on DEV
 		When User hit the GET http request "<GETReq>" for getting the user details on DEV
